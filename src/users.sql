@@ -36,11 +36,11 @@ from users;
 
 
 --update문
-update guestbook 
-set password = '021205',
-where no = 1;
+update users 
+set password = '020205',
+where no = 4;
 
 
 --delete문
-delete from guestbook
+delete from users
 where no = 4;

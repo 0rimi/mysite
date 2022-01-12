@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.UserDao;
 import com.javaex.util.WebUtil;
@@ -64,6 +65,34 @@ public class UserController extends HttpServlet {
 			//완료되었습니다~ 창
 			WebUtil.forward(request, response, "WEB-INF/views/user/joinOk.jsp");
 			
+		}else if("login".equals(act)){
+		
+			System.out.println("user> login");
+			
+			String id = request.getParameter("id");
+			String password = request.getParameter("pass");
+			
+			//아이디 패스워드 주면, 넘버와 이름을 알려주는 authVo들.
+			UserDao userDao = new UserDao();
+			UserVo authVo = userDao.getUser(id, password);
+			
+			System.out.println(authVo);
+			
+			if(authVo == null) {//로그인실패
+				System.out.println("로그인 실패");
+				
+				WebUtil.redirect(request, response, "/mysite/user?action=loginForm");
+			}else {
+				System.out.println("로그인 성공");
+				
+				//authVo라는 주소값을 세션으로 설정, 보낼거임.
+				HttpSession session = request.getSession();
+				session.setAttribute("authUser", authVo);
+				
+				WebUtil.redirect(request, response, "/mysite/main");
+			}
+			
+		
 		}else{
 			System.out.println("파라미터값이 없습니다");
 		}

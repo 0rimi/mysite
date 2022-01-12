@@ -101,6 +101,57 @@ public class UserDao {
 	}
 	
 	
+	//회원정보 1명 가져오기(로그인용)
+	//아이디 패스워드를 주면 해당 회원정보 목록 만듬.
+	public UserVo getUser(String id, String password) {
+		
+		int count = 0;
+		this.getConnection();
+		
+		UserVo userVo = null;
+		
+		try {
+		
+		// 3. SQL문 준비 / 바인딩 / 실행
+		
+		//문자열준비
+		String query = "";
+		query += " SELECT  	no, ";
+		query += " 			name ";
+		query += " FROM users ";
+		query += " WHERE id = ? ";
+		query += " AND password = ? ";
+		
+		//쿼리문 만들기
+		pstmt = conn.prepareStatement(query);
+		
+		//바인딩
+		pstmt.setString(1, id);
+		pstmt.setString(2, password);
+		
+		//실행
+		rs = pstmt.executeQuery();
+			
+		// 4.결과처리
+		while(rs.next()) {
+			int no = rs.getInt("no");
+			String name = rs.getString("name");
+			
+			userVo = new UserVo();
+			userVo.setNo(no);
+			userVo.setName(name);
+		}
+		
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+	
+		this.getclose();
+		return userVo;	
+		
+	}
+	
+	
 	
 	
 

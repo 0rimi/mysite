@@ -117,7 +117,7 @@
 								<button type="submit" id="btn-submit">회원가입</button>
 							</div>
 							
-							<input type="text" name="action" value="join">
+							<input type="hidden" name="action" value="join">
 						</form>
 					</div>
 					<!-- //joinForm -->
