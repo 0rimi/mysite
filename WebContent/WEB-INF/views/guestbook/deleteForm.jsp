@@ -38,7 +38,7 @@
 			-->	
 			<ul>
 				<li><a href="/mysite/user?action=loginForm" class="btn_s">로그인</a></li>
-				<li><a href="" class="btn_s">회원가입</a></li>
+				<li><a href="/mysite/user?action=joinForm" class="btn_s">회원가입</a></li>
 			</ul>
 			
 		</div>
