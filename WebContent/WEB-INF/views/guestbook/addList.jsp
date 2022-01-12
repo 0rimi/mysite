@@ -1,11 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%@ page import="java.util.List" %>
+
+<%@ page import="com.javaex.vo.GuestbookVo" %>    
+
+<%
+								  //강제형변환필요
+	List<GuestbookVo> gbList = (List<GuestbookVo>)request.getAttribute("gbList"); 
+
+%>   
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link href="../../assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="../../assets/css/guestbook.css" rel="stylesheet" type="text/css">
+<link href="/mysite/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="/mysite/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -37,7 +51,7 @@
 				<li><a href="">입사지원서</a></li>
 				<li><a href="">게시판</a></li>
 				<li><a href="">갤러리</a></li>
-				<li><a href="">방명록</a></li>
+				<li><a href="/mysite/guest?action=addList">방명록</a></li>
 			</ul>
 		</div>
 		<!-- //nav -->
@@ -96,25 +110,12 @@
 						
 					</form>	
 					
-					<table class="guestRead">
-						<colgroup>
-							<col style="width: 10%;">
-							<col style="width: 40%;">
-							<col style="width: 40%;">
-							<col style="width: 10%;">
-						</colgroup>
-						<tr>
-							<td>1234555</td>
-							<td>이정재</td>
-							<td>2020-03-03 12:12:12</td>
-							<td><a href="">[삭제]</a></td>
-						</tr>
-						<tr>
-							<td colspan=4 class="text-left">방명록 글입니다. 방명록 글입니다.</td>
-						</tr>
-					</table>
+
+
+
 					<!-- //guestRead -->
 					
+					<% for(int i=0; i<gbList.size(); i++){ %>
 					<table class="guestRead">
 						<colgroup>
 								<col style="width: 10%;">
@@ -123,15 +124,19 @@
 								<col style="width: 10%;">
 						</colgroup>
 						<tr>
-							<td>1234555</td>
-							<td>이정재</td>
-							<td>2020-03-03 12:12:12</td>
-							<td><a href="">[삭제]</a></td>
+							<td><%=gbList.get(i).getNo()%></td>
+							<td><%=gbList.get(i).getName()%></td>
+							<td><%=gbList.get(i).getRegDate()%></td>
+							<td><a href="/mysite/guest?action=deleteForm&no=<%=gbList.get(i).getNo()%>">삭제</a></td>
 						</tr>
 						<tr>
-							<td colspan=4 class="text-left">방명록 글입니다. 방명록 글입니다.</td>
+							<td colspan="4">
+								<%=gbList.get(i).getContent()%>
+							</td>
 						</tr>
-					</table>	
+					</table>
+					<br>
+					<% } %>	
 					<!-- //guestRead -->
 					
 				</div>
