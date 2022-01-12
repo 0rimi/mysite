@@ -66,7 +66,7 @@ public class UserController extends HttpServlet {
 			WebUtil.forward(request, response, "WEB-INF/views/user/joinOk.jsp");
 			
 		}else if("login".equals(act)){
-		
+			
 			System.out.println("user> login");
 			
 			String id = request.getParameter("id");
@@ -81,7 +81,7 @@ public class UserController extends HttpServlet {
 			if(authVo == null) {//로그인실패
 				System.out.println("로그인 실패");
 				
-				WebUtil.redirect(request, response, "/mysite/user?action=loginForm");
+				WebUtil.redirect(request, response, "/mysite/user?action=loginForm&result=fail");
 			}else {
 				System.out.println("로그인 성공");
 				
@@ -92,13 +92,47 @@ public class UserController extends HttpServlet {
 				WebUtil.redirect(request, response, "/mysite/main");
 			}
 			
-		
+		}else if("logout".equals(act)) {
+			
+			System.out.println("user> logout");
+			
+			HttpSession session = request.getSession();
+			session.removeAttribute("authUser");
+			session.invalidate(); //메모리에서 삭제
+			
+			WebUtil.redirect(request, response, "/mysite/main");
+			
+		}else if("modifyForm".equals(act)) {
+			
+			System.out.println("user> modifyForm");
+			
+			WebUtil.forward(request, response, "WEB-INF/views/user/modifyForm.jsp");
+			
+		}else if("modify".equals(act)) {
+			
+			System.out.println("user> modify");
+			
+			UserDao userDao = new UserDao();
+			
+			//수정할 회원의 no 파라미터값 불러오기
+			String num = request.getParameter("no");
+			int no = Integer.parseInt(num);
+			
+			//수정할정보들도 불러오기
+			String password = request.getParameter("password");
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			
+			//해당 넘버의 회원 정보 수정하는 메소드 사용
+			UserVo upUser = userDao.Update(no);
+			
 		}else{
 			System.out.println("파라미터값이 없습니다");
 		}
+			
+	}
 	
 		
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	

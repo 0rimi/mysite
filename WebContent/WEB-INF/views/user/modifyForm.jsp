@@ -1,32 +1,52 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%@ page import="com.javaex.vo.UserVo" %>
+<%@ page import="com.javaex.dao.UserDao" %>
+    
+<%
+	UserVo authUser = (UserVo)session.getAttribute("authUser");
+  
+	//인증된 유저no와 같은 유저정보(이름, 패스워드, 아이디, 성별) 가져오는 userinfo만들기
+	UserDao userDao = new UserDao();
+	//유저넘버 넣어주기	
+	int index = authUser.getNo();
+	UserVo userinfo = userDao.getUserinfo(index);
+  
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../../assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="../../assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="/mysite/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="/mysite/assets/css/user.css" rel="stylesheet" type="text/css">
 
 </head>
+
 
 <body>
 	<div id="wrap">
 
 		<div id="header" class="clearfix">
 			<h1>
-				<a href="/mysite/main">MySite</a>
+				<a href="/mysite/main"">MySite</a>
 			</h1>
 
-			<!-- 
-			<ul>
-				<li>황일영 님 안녕하세요^^</li>
-				<li><a href="" class="btn_s">로그아웃</a></li>
-				<li><a href="" class="btn_s">회원정보수정</a></li>
-			</ul>
-			-->	
+			<%if(authUser == null){ %>
+			<!-- 로그인 실패 or 로그인전 -->
 			<ul>
 				<li><a href="/mysite/user?action=loginForm" class="btn_s">로그인</a></li>
 				<li><a href="/mysite/user?action=joinForm" class="btn_s">회원가입</a></li>
+			</ul>	
+			<%}else{%>
+			<!-- 로그인 성공 -->
+			<ul>
+				<li><%=authUser.getName()%> 님 안녕하세요^^</li>
+				<li><a href="/mysite/user?action=logout" class="btn_s">로그아웃</a></li>
+				<li><a href="/mysite/user?action=modifyForm" class="btn_s">회원정보수정</a></li>
 			</ul>
+			<%}%>
 			
 		</div>
 		<!-- //header -->
@@ -36,7 +56,7 @@
 				<li><a href="">입사지원서</a></li>
 				<li><a href="">게시판</a></li>
 				<li><a href="">갤러리</a></li>
-				<li><a href="/mysite/guest?action=addList">방명록</a></li>
+				<li><a href="">방명록</a></li>
 			</ul>
 		</div>
 		<!-- //nav -->
@@ -74,38 +94,40 @@
 							<!-- 아이디 -->
 							<div class="form-group">
 								<label class="form-text" for="input-uid">아이디</label> 
-								<span class="text-large bold">userid</span>
+								<span class="text-large bold"><%=userinfo.getId()%></span>
 							</div>
 	
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label class="form-text" for="input-pass">패스워드</label> 
-								<input type="text" id="input-pass" name="" value="" placeholder="비밀번호를 입력하세요"	>
+								<input type="text" id="input-pass" name="password" value="<%=userinfo.getPassword() %>" placeholder="비밀번호를 입력하세요"	>
 							</div>
 	
-							<!-- 이메일 -->
+							<!-- 이름 -->
 							<div class="form-group">
 								<label class="form-text" for="input-name">이름</label> 
-								<input type="text" id="input-name" name="" value="" placeholder="이름을 입력하세요">
+								<input type="text" id="input-name" name="name" value="<%=userinfo.getName() %>" placeholder="이름을 입력하세요">
 							</div>
 	
-							<!-- //나이 -->
+							<!-- 성별 -->
 							<div class="form-group">
 								<span class="form-text">성별</span> 
 								
 								<label for="rdo-male">남</label> 
-								<input type="radio" id="rdo-male" name="" value="" > 
+								<input type="radio" id="rdo-male" name="gender" value="<%=userinfo.getGender() %>" > 
 								
 								<label for="rdo-female">여</label> 
-								<input type="radio" id="rdo-female" name="" value="" > 
+								<input type="radio" id="rdo-female" name="gender" value="<%=userinfo.getGender() %>" > 
 	
 							</div>
 	
 							<!-- 버튼영역 -->
 							<div class="button-area">
-								<button type="submit" id="btn-submit">회원정보수정</button>
+								<button type="submit" id="btn-submit">회원정보수정</button>						
 							</div>
 							
+							<input type="hidden" name="no" value="<%=authUser.getNo() %>">
+							<input type="hidden" name="action" value="modify">
 						</form>
 					
 					
@@ -126,7 +148,8 @@
 		
 	</div>
 	<!-- //wrap -->
-
+	
+	
 </body>
 
 </html>
