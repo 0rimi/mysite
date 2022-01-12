@@ -3,6 +3,7 @@ package com.javaex.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +27,7 @@ public class GuestbookController extends HttpServlet {
 			
 		if("addList".equals(act)) {
 				
-			System.out.println("user> addList");
+			System.out.println("guest> addList");
 				
 			GuestbookDao guestbookDao = new GuestbookDao();
 			List<GuestbookVo> gbList = guestbookDao.getList();
@@ -40,7 +41,7 @@ public class GuestbookController extends HttpServlet {
 				
 			
 		}else if("add".equals(act)){
-			System.out.println("action=add");
+			System.out.println("guest> add");
 			
 			//파라미터 3개를 꺼내온다
 			String name = request.getParameter("name");
@@ -60,6 +61,35 @@ public class GuestbookController extends HttpServlet {
 			//리다이렉트
 			response.sendRedirect("/mysite/guest?action=addList");
 			
+		}else if("deleteForm".equals(act)) {
+			System.out.println("guest> deleteForm");
+			
+			//값
+			//포워드
+			WebUtil.forward(request, response, "WEB-INF/views/guestbook/deleteForm.jsp");
+			
+		}else if("delete".equals(act)) {
+			System.out.println("guest> delete");
+			
+			//일단 번호 정보를 불러와야함
+			String password = request.getParameter("pass");
+			String num = request.getParameter("no");
+			int no = Integer.parseInt(num);
+			
+			//Vo에 넣고 값 초기화 set값
+			GuestbookVo guestbookVo = new GuestbookVo(no,password);
+			System.out.println(guestbookVo);
+			
+			//델리트
+			GuestbookDao guestbookDao = new GuestbookDao();
+			guestbookDao.delete(guestbookVo);
+			
+			//리다이렉트
+			response.sendRedirect("/mysite/guest?action=addList");
+			
+			
+		}else {
+			System.out.println("파라미터 값 없음");
 		}
 	
 	}
