@@ -45,7 +45,7 @@ public class GuestbookController extends HttpServlet {
 			
 			//파라미터 3개를 꺼내온다
 			String name = request.getParameter("name");
-			String password = request.getParameter("password");
+			String password = request.getParameter("pass");
 			String content = request.getParameter("content");
 			
 			//vo로 만든다

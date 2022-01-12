@@ -135,45 +135,7 @@ public class GuestbookDao {
 		    return count;
 			
 		}
-		
-		//delete
-		public void delete2(int index) {
-			
-			int count = 0;
-			this.getConnection();
-			
-			try {
-				
-				// 3. SQL문 준비 / 바인딩 / 실행
-				
-				//문자열준비
-				 String query ="";
-		         query += " delete from guestbook "; 
-		         query += " where no= ? " ; 
 
-							
-				//쿼리문 만들기
-		        pstmt = conn.prepareStatement(query);
-				
-				//바인딩
-		        pstmt.setInt(1, index );
-
-							
-				//실행
-				count = pstmt.executeUpdate();
-					
-				// 4.결과처리
-				System.out.println(count + "건 삭제");
-				
-			} catch (SQLException e) {
-			System.out.println("error:" + e);
-			}
-			
-			this.getclose();
-			
-		}
-	
-	
 	
 	//리스트출력
 	public List<GuestbookVo> getList() {

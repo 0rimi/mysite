@@ -98,7 +98,7 @@
 						<!--유저코드-->
 						<input type="hidden" name="no" value="<%=num%>">
 						<!--델리트로보내는액션파라미터-->
-						<input type="text" name="action" value="delete">
+						<input type="hidden" name="action" value="delete">
 					</form>
 					
 				</div>
