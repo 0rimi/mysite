@@ -28,7 +28,7 @@
 
 		<div id="header" class="clearfix">
 			<h1>
-				<a href="">MySite</a>
+				<a href="/mysite/main">MySite</a>
 			</h1>
 
 			<!-- 
@@ -39,7 +39,7 @@
 			</ul>
 			-->	
 			<ul>
-				<li><a href="" class="btn_s">로그인</a></li>
+				<li><a href="/mysite/user?action=loginForm" class="btn_s">로그인</a></li>
 				<li><a href="" class="btn_s">회원가입</a></li>
 			</ul>
 			

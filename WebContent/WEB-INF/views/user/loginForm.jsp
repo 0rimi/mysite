@@ -14,7 +14,7 @@
 
 		<div id="header" class="clearfix">
 			<h1>
-				<a href="">MySite</a>
+				<a href="/mysite/main">MySite</a>
 			</h1>
 
 			<!-- 
