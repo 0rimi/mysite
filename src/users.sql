@@ -24,6 +24,12 @@ insert into users
 values(seq_users_no.nextval, 'sb1205', '20001205', '최수빈', 'male');
 insert into users
 values(seq_users_no.nextval, 'yj0913', '19990913', '최연준', 'male');
+insert into users
+values(seq_users_no.nextval, 'bg0313', '20010313', '최범규', 'male');
+insert into users
+values(seq_users_no.nextval, 'th0205', '20020205', '강태현', 'male');
+insert into users
+values(seq_users_no.nextval, 'kai0814', '20020814', '휴닝카이', 'male');
        
 commit;       
        

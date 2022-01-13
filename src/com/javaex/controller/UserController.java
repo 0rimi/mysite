@@ -123,8 +123,15 @@ public class UserController extends HttpServlet {
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
 			
+			//수정할 넘버, 패스워드,네임,젠더 순으로 Vo만들어 넣어주기
+			UserVo userVo = new UserVo(no, password, name, gender);
+			System.out.println(userVo);
+			
 			//해당 넘버의 회원 정보 수정하는 메소드 사용
-			UserVo upUser = userDao.Update(no);
+			userDao.Update(userVo);
+			
+			//리다이렉션
+			WebUtil.redirect(request, response, "/mysite/user?action=modifyForm");
 			
 		}else{
 			System.out.println("파라미터값이 없습니다");

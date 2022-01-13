@@ -209,10 +209,11 @@ public class UserDao {
 	}
 	
 	//회원정보 수정하는 메소드
-	public UserVo Update(int index) {
+	public int Update(UserVo userVo) {
 		
 		this.getConnection();
-		UserVo userVo = null;
+		UserVo upUser = null;
+		int count = 0;
 		
 		try {
 		
@@ -230,21 +231,16 @@ public class UserDao {
 		pstmt = conn.prepareStatement(query);
 		
 		//바인딩
-		pstmt.setString(1, id);
-		pstmt.setString(2, password);
+		pstmt.setString(1, userVo.getPassword());
+		pstmt.setString(2, userVo.getName());
+		pstmt.setString(3, userVo.getGender());
+		pstmt.setInt(4, userVo.getNo());
 		
 		//실행
-		rs = pstmt.executeQuery();
+		count = pstmt.executeUpdate();
 			
 		// 4.결과처리
-		while(rs.next()) {
-			int no = rs.getInt("no");
-			String name = rs.getString("name");
-			
-			userVo = new UserVo();
-			userVo.setNo(no);
-			userVo.setName(name);
-		}
+		System.out.println(count + "건 수정되었습니다.");
 		
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -252,7 +248,7 @@ public class UserDao {
 	
 		this.getclose();
 		
-		return userVo;
+		return count;
 		
 	}
 	
