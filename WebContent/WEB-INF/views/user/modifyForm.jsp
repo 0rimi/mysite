@@ -30,7 +30,7 @@
 
 		<div id="header" class="clearfix">
 			<h1>
-				<a href="/mysite/main"">MySite</a>
+				<a href="/mysite/main">MySite</a>
 			</h1>
 
 			<%if(authUser == null){ %>
@@ -56,7 +56,7 @@
 				<li><a href="">입사지원서</a></li>
 				<li><a href="">게시판</a></li>
 				<li><a href="">갤러리</a></li>
-				<li><a href="">방명록</a></li>
+				<li><a href="/mysite/guest?action=addList">방명록</a></li>
 			</ul>
 		</div>
 		<!-- //nav -->
@@ -114,7 +114,7 @@
 								<span class="form-text">성별</span> 
 								
 								<%
-								String gender = "userinfo.getGender()";
+								String gender = userinfo.getGender();
 								if(gender.equals("male")){%>							
 								<label for="rdo-male">남</label> 
 								<input type="radio" id="rdo-male" name="gender" value="male" checked="checked"> 
