@@ -8,13 +8,14 @@
 <%
 	UserVo authUser = (UserVo)session.getAttribute("authUser");
   	
-
+	UserVo userinfo = (UserVo)request.getAttribute("userinfo");
+	/*
 	//인증된 유저no와 같은 유저정보(이름, 패스워드, 아이디, 성별) 가져오는 userinfo만들기
 	UserDao userDao = new UserDao();
 	//유저넘버 넣어주기	
 	int index = authUser.getNo();
 	UserVo userinfo = userDao.getUserinfo(index);
-
+	*/
   
 %>
 <!DOCTYPE html>
