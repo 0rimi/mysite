@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@ page import="java.util.List"%>
+<%@ page import="com.javaex.vo.BoardVo" %>
+
+<%
+
+	//getAttribute해주기
+	List<BoardVo> bdList = (List<BoardVo>)request.getAttribute("bdList");
+	
+	//게시판의 유저넘버와 같은 유저 정보 불러오는 메소드 어트리뷰트해주기
+	
+%> 
     
 <!DOCTYPE html>
 <html>
@@ -18,15 +30,9 @@
 	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
 		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>게시판</h2>
-				<ul>
-					<li><a href="">일반게시판</a></li>
-					<li><a href="">댓글게시판</a></li>
-				</ul>
-			</div>
-			<!-- //aside -->
-
+			
+			<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
+			
 			<div id="content">
 
 				<div id="content-head">
@@ -50,6 +56,7 @@
 								<button type="submit" id=btn_search>검색</button>
 							</div>
 						</form>
+						
 						<table >
 							<thead>
 								<tr>
@@ -62,46 +69,16 @@
 								</tr>
 							</thead>
 							<tbody>
+							<c:forEach items="${requestScope.bdList }" var="bdList" varStatus="">
 								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
+									<td>${bdList.no }</td>
+									<td class="text-left"><a href="#">${bdList.title}</a></td>
+									<td>${bdList.name }</td>
+									<td>${bdList.hit}</td>
+									<td>${bdList.regdate }</td>
 									<td><a href="">[삭제]</a></td>
 								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr class="last">
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
+							</c:forEach>
 							</tbody>
 						</table>
 			
@@ -124,7 +101,7 @@
 							
 							<div class="clear"></div>
 						</div>
-						<a id="btn_write" href="">글쓰기</a>
+						<a id="btn_write" href="/mysite/board?action=writeForm">글쓰기</a>
 					
 					</div>
 					<!-- //list -->

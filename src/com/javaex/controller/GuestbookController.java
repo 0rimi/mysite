@@ -20,6 +20,7 @@ public class GuestbookController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("/guestbook");
+		request.setCharacterEncoding("UTF-8");
 		
 		//?action= 뒤에 올값으로 각 주소 > 파라미터 가져오기
 		String act = request.getParameter("action");

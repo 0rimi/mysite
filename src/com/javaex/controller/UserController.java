@@ -20,7 +20,7 @@ public class UserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println("/user");
-		request.setCharacterEncoding("UTFF-8");
+		request.setCharacterEncoding("UTF-8");
 		
 		//?action= 뒤에 올값으로 각 주소 > 파라미터 가져오기
 		String act = request.getParameter("action");
@@ -106,23 +106,23 @@ public class UserController extends HttpServlet {
 		}else if("modifyForm".equals(act)) {
 			
 			System.out.println("user> modifyForm");
-			/*
+			
+			//사용자 정보를 가져오기 위한 no값은 세션에서 가져온다.
+			//세션의 정보 ==  로그인한 사용자 정보
+			HttpSession session = request.getSession();
+			int no = ((UserVo)session.getAttribute("authUser")).getNo();
+			
+			
 			//포워드전에 값넣기!
 			//인증된 유저no와 같은 유저정보(이름, 패스워드, 아이디, 성별) 가져오는 userinfo만들기
 			UserDao userDao = new UserDao();
-			
-			
-			//폼에서 보내준 셋어트리뷰트 값(authUser의 넘버값) 가져오기
-			int no = (int)request.getAttribute("number");
-			System.out.println(no);
-			
 			//유저넘버 넣어주기
-			UserVo userinfo = userDao.getUserinfo(no);
+			UserVo userinfo = userDao.getUserinfo(no);			
 			
 			//userinfo 보내주기
 			request.setAttribute("userinfo", userinfo); //꺼내쓸이름, 넣어줄아이
-			*/
 			
+	
 			//포워드
 			WebUtil.forward(request, response, "WEB-INF/views/user/modifyForm.jsp");
 			
