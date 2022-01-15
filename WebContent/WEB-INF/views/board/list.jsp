@@ -76,7 +76,7 @@
 									<td>${bdList.name }</td>
 									<td>${bdList.hit}</td>
 									<td>${bdList.regdate }</td>
-									<td><a href="">[삭제]</a></td>
+									<td><a href="/mysite/board?action=delete">[삭제]</a></td>
 								</tr>
 							</c:forEach>
 							</tbody>

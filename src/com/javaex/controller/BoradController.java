@@ -71,6 +71,10 @@ public class BoradController extends HttpServlet {
 			//포워드
 			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
 				
+		}else if("delete".equals(act)){
+			
+			System.out.println("board> delete");
+			
 		}
 		
 		
