@@ -101,8 +101,16 @@
 							
 							<div class="clear"></div>
 						</div>
-						<a id="btn_write" href="/mysite/board?action=writeForm">글쓰기</a>
-					
+						
+						<c:choose>
+							<c:when test="${empty sessionScope.authUser}">
+								<!-- (아무것도없지요) -->
+							</c:when>
+							<c:otherwise>
+								<a id="btn_write" href="/mysite/board?action=writeForm">글쓰기</a>
+							</c:otherwise>
+						</c:choose>
+						
 					</div>
 					<!-- //list -->
 				</div>

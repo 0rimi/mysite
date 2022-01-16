@@ -52,58 +52,62 @@
 				<div id="user">
 					<div id="loginForm">
 					
-						<%if("fail".equals(result)){%>
-						<!-- 로그인실패시 -->
+						<c:choose>
+							<c:when test="${result eq 'fail'}">
+							<!-- 로그인실패시 -->
+			
+							<form action="/mysite/user" method="get">
+							
+								<!-- 아이디 -->
+								<div class="form-group">
+									<label class="form-text" for="input-uid">아이디</label> 
+									<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
+								</div>
 		
-						<form action="/mysite/user" method="get">
-						
-							<!-- 아이디 -->
-							<div class="form-group">
-								<label class="form-text" for="input-uid">아이디</label> 
-								<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
-							</div>
-	
-							<!-- 비밀번호 -->
-							<div class="form-group">
-								<label class="form-text" for="input-pass">비밀번호</label> 
-								<input type="password" id="input-pass" name="pass" value="" placeholder="비밀번호를 입력하세요"	>
-							</div>
-	
-							<p>아이디와 비밀번호를 확인해주세요</p>
+								<!-- 비밀번호 -->
+								<div class="form-group">
+									<label class="form-text" for="input-pass">비밀번호</label> 
+									<input type="password" id="input-pass" name="pass" value="" placeholder="비밀번호를 입력하세요"	>
+								</div>
+		
+								<p>아이디와 비밀번호를 확인해주세요</p>
+								
+								<!-- 버튼영역 -->
+								<div class="button-area">
+									<button type="submit" id="btn-submit">로그인</button>
+								</div>
+								
+								<input type="hidden" name="action" value="login">
+								
+							</form>					
+							</c:when>
+							<c:otherwise>			
+							<form action="/mysite/user" method="get">
 							
-							<!-- 버튼영역 -->
-							<div class="button-area">
-								<button type="submit" id="btn-submit">로그인</button>
-							</div>
+								<!-- 아이디 -->
+								<div class="form-group">
+									<label class="form-text" for="input-uid">아이디</label> 
+									<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
+								</div>
+		
+								<!-- 비밀번호 -->
+								<div class="form-group">
+									<label class="form-text" for="input-pass">비밀번호</label> 
+									<input type="password" id="input-pass" name="pass" value="" placeholder="비밀번호를 입력하세요"	>
+								</div>
+		
+								
+								<!-- 버튼영역 -->
+								<div class="button-area">
+									<button type="submit" id="btn-submit">로그인</button>
+								</div>
+								
+								<input type="hidden" name="action" value="login">
+								
+							</form>							
+							</c:otherwise>
 							
-							<input type="hidden" name="action" value="login">
-							
-						</form>
-						<%}else{%>
-						<form action="/mysite/user" method="get">
-						
-							<!-- 아이디 -->
-							<div class="form-group">
-								<label class="form-text" for="input-uid">아이디</label> 
-								<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
-							</div>
-	
-							<!-- 비밀번호 -->
-							<div class="form-group">
-								<label class="form-text" for="input-pass">비밀번호</label> 
-								<input type="password" id="input-pass" name="pass" value="" placeholder="비밀번호를 입력하세요"	>
-							</div>
-	
-							
-							<!-- 버튼영역 -->
-							<div class="button-area">
-								<button type="submit" id="btn-submit">로그인</button>
-							</div>
-							
-							<input type="hidden" name="action" value="login">
-							
-						</form>
-						<%}%>
+						</c:choose>
 					</div>
 					<!-- //loginForm -->
 				</div>
