@@ -26,8 +26,9 @@
 
 
 <body>
+	<div id="wrap">
 	
-	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
 		<div id="container" class="clearfix">
 			
