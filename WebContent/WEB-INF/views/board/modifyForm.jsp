@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@ page import="java.util.List"%>
+<%@ page import="com.javaex.vo.BoardVo" %>
+ 
+<%
+
+	//getAttribute해주기
+	BoardVo userVo = (BoardVo)request.getAttribute("userVo");
+	
+%>  
     
 <!DOCTYPE html>
 <html>
@@ -43,42 +53,35 @@
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span>
-								<span class="form-value">정우성</span>
+								<span class="form-value">${userVo.name }</span>
 							</div>
 							
 							<!-- 조회수 -->
 							<div class="form-group">
 								<span class="form-text">조회수</span>
-								<span class="form-value">123</span>
+								<span class="form-value">${userVo.hit }</span>
 							</div>
 							
 							<!-- 작성일 -->
 							<div class="form-group">
 								<span class="form-text">작성일</span>
-								<span class="form-value">2020-03-02</span>
+								<span class="form-value">${userVo.regdate }</span>
 							</div>
 							
 							<!-- 제목 -->
 							<div class="form-group">
 								<label class="form-text" for="txt-title">제목</label>
-								<input type="text" id="txt-title" name="" value="여기에는 글제목이 출력됩니다.">
+								<input type="text" id="txt-title" name="title" placeholder="${userVo.title }">
 							</div>
 						
 							
 						
 							<!-- 내용 -->
 							<div class="form-group">
-								<textarea id="txt-content">여기에는 본문내용이 출력됩니다.
-	여기에는 본문내용이 출력됩니다.
-	여기에는 본문내용이 출력됩니다.
-	여기에는 본문내용이 출력됩니다.
-	여기에는 본문내용이 출력됩니다.
-	여기에는 본문내용이 출력됩니다.
-	여기에는 본문내용이 출력됩니다.
-	여기에는 본문내용이 출력됩니다.</textarea>
+								<textarea id="txt-content" name="content">${userVo.content }</textarea>
 							</div>
 							
-							<a id="btn_cancel" href="">취소</a>
+							<a id="btn_cancel" href="/mysite/board?action=list">취소</a>
 							<button id="btn_modify" type="submit" >수정</button>
 							
 						</form>

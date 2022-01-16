@@ -2,12 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
     
-<%@ page import="com.javaex.vo.UserVo" %>
-    
-<%
-	//result 파라미터값받기
-	String result = request.getParameter("result");
-%>    
+<%@ page import="com.javaex.vo.UserVo" %>  
 
 <!DOCTYPE html>
 <html>
@@ -53,7 +48,7 @@
 					<div id="loginForm">
 					
 						<c:choose>
-							<c:when test="${result eq 'fail'}">
+							<c:when test="${param.result eq 'fail'}">
 							<!-- 로그인실패시 -->
 			
 							<form action="/mysite/user" method="get">

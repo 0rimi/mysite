@@ -26,18 +26,21 @@ public class TestDao {
 		
 		List<BoardVo> bdList = boardDao.list();
 				
-		UserVo uservo = new UserVo();
-		UserDao userDao = new UserDao();
-		//bdList의 넘버값 받아오기
-		for(int i=0; i<bdList.size(); i++) {
-			int no = bdList.get(i).getNo();
-			
-			String name = userDao.getUserinfo(no).getName();
-			
-			bdList.get(i).setName(name);					
-		}
+//		UserVo uservo = new UserVo();
+//		UserDao userDao = new UserDao();
+//		//bdList의 넘버값 받아오기
+//		for(int i=0; i<bdList.size(); i++) {
+//			int no = bdList.get(i).getNo();
+//			
+//			String name = userDao.getUserinfo(no).getName();
+//			
+//			bdList.get(i).setName(name);					
+//		}
+//		
+//		System.out.println(bdList);
 		
-		System.out.println(bdList);
+		boardDao.delete(6);
+		
 		
 	}
 

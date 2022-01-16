@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>     
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+ 
+<%@ page import="java.util.List"%>
+<%@ page import="com.javaex.vo.BoardVo" %>
+ 
+<%
+
+	//getAttribute해주기
+	BoardVo userVo = (BoardVo)request.getAttribute("userVo");
+	
+%> 
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,43 +53,43 @@
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span>
-								<span class="form-value">정우성</span>
+								<span class="form-value">${userVo.name }</span>
 							</div>
 							
 							<!-- 조회수 -->
 							<div class="form-group">
 								<span class="form-text">조회수</span>
-								<span class="form-value">123</span>
+								<span class="form-value">${userVo.hit }</span>
 							</div>
 							
 							<!-- 작성일 -->
 							<div class="form-group">
 								<span class="form-text">작성일</span>
-								<span class="form-value">2020-03-02</span>
+								<span class="form-value">${userVo.regdate }</span>
 							</div>
 							
 							<!-- 제목 -->
 							<div class="form-group">
 								<span class="form-text">제 목</span>
-								<span class="form-value">여기에는 글제목이 출력됩니다.</span>
+								<span class="form-value">${userVo.title }</span>
 							</div>
 						
 							<!-- 내용 -->
 							<div id="txt-content">
 								<span class="form-value" >
-									여기에는 본문내용이 출력됩니다.<br>
-									여기에는 본문내용이 출력됩니다.<br>
-									여기에는 본문내용이 출력됩니다.<br>
-									여기에는 본문내용이 출력됩니다.<br>
-									여기에는 본문내용이 출력됩니다.<br>
-									여기에는 본문내용이 출력됩니다.<br>
-									여기에는 본문내용이 출력됩니다.<br>
-									여기에는 본문내용이 출력됩니다.<br>
+									${userVo.content }
 								</span>
 							</div>
 							
-							<a id="btn_modify" href="">수정</a>
-							<a id="btn_modify" href="">목록</a>
+							<c:choose >
+								<c:when test="${userVo.no == authUser.no }">
+									<a id="btn_modify" href="/mysite/board?action=modifyForm&no=${userVo.no}">수정</a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+							
+							<a id="btn_modify" href="/mysite/board?action=list">목록</a>
 							
 						</form>
 						<!-- //form -->

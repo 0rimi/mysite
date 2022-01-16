@@ -72,15 +72,24 @@
 							<c:forEach items="${requestScope.bdList }" var="bdList" varStatus="">
 								<tr>
 									<td>${bdList.no }</td>
-									<td class="text-left"><a href="#">${bdList.title}</a></td>
+									<td class="text-left"><a href="/mysite/board?action=read&no=${bdList.no }">${bdList.title}</a></td>
 									<td>${bdList.name }</td>
 									<td>${bdList.hit}</td>
 									<td>${bdList.regdate }</td>
-									<td><a href="/mysite/board?action=delete">[삭제]</a></td>
+									
+									<c:choose >
+										<c:when test="${bdList.no == authUser.no }">
+											<td><a href="/mysite/board?action=delete&no=${bdList.no }">[삭제]</a></td>
+										</c:when>
+										<c:otherwise>
+										</c:otherwise>
+									</c:choose>
 								</tr>
 							</c:forEach>
 							</tbody>
 						</table>
+						
+						
 			
 						<div id="paging">
 							<ul>

@@ -42,14 +42,6 @@ public class BoradController extends HttpServlet {
 			//일단쓸것 들 선언
 			UserVo uservo = new UserVo();
 			UserDao userDao = new UserDao();
-			//bdList의 넘버값 받아오기
-			for(int i=0; i<bdList.size(); i++) {
-				int no = bdList.get(i).getNo();
-				
-				String name = userDao.getUserinfo(no).getName();
-				
-				bdList.get(i).setName(name);					
-			}
 			
 			System.out.println(bdList);
 			
@@ -68,10 +60,6 @@ public class BoradController extends HttpServlet {
 			//포워드
 			WebUtil.forward(request, response, "/WEB-INF/views/board/writeForm.jsp");
 				
-		}else if("delete".equals(act)){
-			
-			System.out.println("board> delete");
-			
 		}else if("write".equals(act)) {
 			
 			System.out.println("board> write");
@@ -83,9 +71,9 @@ public class BoradController extends HttpServlet {
 			String num = request.getParameter("no");
 			int no = Integer.parseInt(num);
 			
-			System.out.println(title);
-			System.out.println(content);
-			System.out.println(no);
+			System.out.println("제목" + title);
+			System.out.println("내용" + content);
+			System.out.println("유저번호" + no);
 			
 			//받아온 값을 넣어주는 메소드 사용
 			BoardDao boardDao = new BoardDao();
@@ -95,6 +83,82 @@ public class BoradController extends HttpServlet {
 			//등록후 리스트로 이동하는 리다이렉트
 			WebUtil.redirect(request, response, "/mysite/board?action=list");
 					
+		}else if("delete".equals(act)){
+			
+			System.out.println("board> delete");
+			
+			//게시물쓴 유저넘버 파라미터값 가져오기
+			String unum = request.getParameter("no");
+			int no = Integer.parseInt(unum); 
+			
+			System.out.println("게시글유저넘버" + no);
+			
+			BoardDao boardDao = new BoardDao();
+			
+			boardDao.delete(no);
+			
+			//등록후 리스트로 이동하는 리다이렉트
+			WebUtil.redirect(request, response, "/mysite/board?action=list");
+			
+		}else if("read".equals(act)) {
+			
+			System.out.println("board> read");
+
+			//파라미터값 받아오기
+			String num = request.getParameter("no");
+			int no = Integer.parseInt(num);
+
+			//조회수 업데이트
+			BoardDao boardDao = new BoardDao();
+			boardDao.hit(no);
+			
+			//넘버값 넣고 해당 유저 정보 출력해주기
+			BoardVo userVo = boardDao.get(no);
+			
+			//포워드해주기
+			request.setAttribute("userVo", userVo);
+			
+			//포워드
+			WebUtil.forward(request, response, "/WEB-INF/views/board/read.jsp");
+				
+		}else if("modifyForm".equals(act)) {
+			
+			System.out.println("board> modifyForm");
+			
+			//파라미터값 얻기
+			String num = request.getParameter("no");
+			int no = Integer.parseInt(num);
+		
+			//기본 정보 입력해줄수 있는 기본 정보들 
+			BoardDao boardDao = new BoardDao();
+			
+			//넘버값 넣고 해당 유저 정보 출력해주기
+			BoardVo userVo = boardDao.get(no);
+			
+			//포워드해주기
+			request.setAttribute("userVo", userVo);
+	
+			//포워드
+			WebUtil.forward(request, response, "/WEB-INF/views/board/modifyForm.jsp");
+				
+		}else if("modify".equals(act)) {
+			
+			System.out.println("board> modify");
+			
+			//파라미터값 얻기
+			String num = request.getParameter("no");
+			int no = Integer.parseInt(num);
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			
+			//해당 넘버의 내용 수정하는 메소드 사용			
+			//넘버, 제목, 내용 순으로 넣기
+			BoardDao boardDao = new BoardDao();
+			boardDao.update(no, title, content);
+			
+			//리다이렉트
+			WebUtil.redirect(request, response, "/WEB-INF/views/board/modifyForm.jsp");
+				
 		}
 		
 		
