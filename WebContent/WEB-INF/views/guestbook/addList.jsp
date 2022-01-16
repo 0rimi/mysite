@@ -89,8 +89,7 @@
 
 
 					<!-- //guestRead -->
-					
-					<% for(int i=0; i<gbList.size(); i++){ %>
+					<c:forEach items="${requestScope.gbList }" var="gbList" varStatus="">
 					<table class="guestRead">
 						<colgroup>
 								<col style="width: 10%;">
@@ -99,19 +98,19 @@
 								<col style="width: 10%;">
 						</colgroup>
 						<tr>
-							<td><%=gbList.get(i).getNo()%></td>
-							<td><%=gbList.get(i).getName()%></td>
-							<td><%=gbList.get(i).getRegDate()%></td>
-							<td><a href="/mysite/guest?action=deleteForm&no=<%=gbList.get(i).getNo()%>">삭제</a></td>
+							<td>${gbList.no }</td>
+							<td>${gbList.name }</td>
+							<td>${gbList.regDate }</td>
+							<td><a href="/mysite/guest?action=deleteForm&no=${gbList.no }">삭제</a></td>
 						</tr>
 						<tr>
 							<td colspan="4">
-								<%=gbList.get(i).getContent()%>
+								${gbList.content }
 							</td>
 						</tr>
 					</table>
-					<br>
-					<% } %>	
+					<br>	
+					</c:forEach>
 					<!-- //guestRead -->
 					
 				</div>
