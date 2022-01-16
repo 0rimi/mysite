@@ -80,8 +80,11 @@
 							<div class="form-group">
 								<textarea id="txt-content" name="content">${userVo.content }</textarea>
 							</div>
+						
+							<input type="hidden" name="no" value="${userVo.no }">						
 							
 							<a id="btn_cancel" href="/mysite/board?action=list">취소</a>
+							<input type="hidden" name="action" value="modify">
 							<button id="btn_modify" type="submit" >수정</button>
 							
 						</form>

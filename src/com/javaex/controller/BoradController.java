@@ -157,7 +157,7 @@ public class BoradController extends HttpServlet {
 			boardDao.update(no, title, content);
 			
 			//리다이렉트
-			WebUtil.redirect(request, response, "/WEB-INF/views/board/modifyForm.jsp");
+			WebUtil.redirect(request, response, "/mysite/board?action=list");
 				
 		}
 		
