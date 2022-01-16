@@ -256,7 +256,7 @@ public class BoardDao {
 		//문자열준비
 		String query = "";
 		query += " UPDATE 	board ";
-		query += " SET 		hit = +1 ";
+		query += " SET 		hit = NVL(hit, 0) + 1 ";
 		query += " WHERE 	no = ? ";
 		
 		
