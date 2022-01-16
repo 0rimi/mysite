@@ -108,7 +108,45 @@ public class BoardDao {
 			
 	}
 	
+	//로그인한 사용자의 정보(이름, 시간은 자동으로 입력)받아서 board에 등록해주는 메소드
+	public int insert(String title, String content, int no) {
+
+		int count = 0;
+		this.getConnection();
+		
+		try {
+		
+		// 3. SQL문 준비 / 바인딩 / 실행
+		
+		//문자열준비
+		String query = "";
+		query += " INSERT INTO board ";
+		query += " VALUES(seq_board_no.nextval, ?, ?, 0, sysdate, ?) ";
+				
+		
+		//쿼리문 만들기
+		pstmt = conn.prepareStatement(query);
+		
+		//바인딩
+		pstmt.setString(1, title);
+		pstmt.setString(2, content);
+		pstmt.setInt(3, no);
+		
+		//실행
+		count = pstmt.executeUpdate();
+			
+		// 4.결과처리
+		System.out.println(count + "건 삽입");
+		
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
 	
+		this.getclose();
+		return count;	
+
+		
+	}
 	
 	
 	//조회수 늘어나는 메소드

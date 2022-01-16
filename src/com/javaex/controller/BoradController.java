@@ -53,9 +53,6 @@ public class BoradController extends HttpServlet {
 			
 			System.out.println(bdList);
 			
-			
-			
-			
 			//포워드전에 값을 넣어놓기
 			request.setAttribute("bdList", bdList);
 								//꺼내쓸이름, 넣어줄아이
@@ -75,6 +72,29 @@ public class BoradController extends HttpServlet {
 			
 			System.out.println("board> delete");
 			
+		}else if("write".equals(act)) {
+			
+			System.out.println("board> write");
+			
+			//파라미터값 가져오기
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+				//유저넘버는 인풋박스에서!!
+			String num = request.getParameter("no");
+			int no = Integer.parseInt(num);
+			
+			System.out.println(title);
+			System.out.println(content);
+			System.out.println(no);
+			
+			//받아온 값을 넣어주는 메소드 사용
+			BoardDao boardDao = new BoardDao();
+						
+			boardDao.insert(title, content, no);
+			
+			//등록후 리스트로 이동하는 리다이렉트
+			WebUtil.redirect(request, response, "/mysite/board?action=list");
+					
 		}
 		
 		

@@ -40,23 +40,35 @@
 	
 				<div id="board">
 					<div id="writeForm">
-						<form action="#" method="get">
-							<!-- 제목 -->
-							<div class="form-group">
-								<label class="form-text" for="txt-title">제목</label>
-								<input type="text" id="txt-title" name="" value="" placeholder="제목을 입력해 주세요">
-							</div>
-						
-							<!-- 내용 -->
-							<div class="form-group">
-								<textarea id="txt-content"></textarea>
-							</div>
+					
+					<!-- 로그인한 사용자만 볼수있는 화면으로 만들기 -->
+					<c:choose>
+						<c:when test="${empty sessionScope.authUser }">
+							로그인 해주세요!
+						</c:when>
+						<c:otherwise>
+							<form action="#" method="get">
+								<!-- 제목 -->
+								<div class="form-group">
+									<label class="form-text" for="txt-title">제목</label>
+									<input type="text" id="txt-title" name="title" value="" placeholder="제목을 입력해 주세요">
+								</div>
 							
-							<a id="btn_cancel" href="">취소</a>
-							<button id="btn_add" type="submit" >등록</button>
-							
-						</form>
-						<!-- //form -->
+								<!-- 내용 -->
+								<div class="form-group">
+									<textarea id="txt-content" name="content"></textarea>
+								</div>
+								
+								<input type="hidden" name="no" value="${authUser.no }">
+								
+								<a id="btn_cancel" href="/mysite/board?action=list">취소</a>
+								<button id="btn_add" type="submit">등록</button>
+								<input type="hidden" name="action" value="write">
+								
+							</form>
+							<!-- //form -->
+						</c:otherwise>
+					</c:choose>
 					</div>
 					<!-- //writeForm -->
 				</div>
